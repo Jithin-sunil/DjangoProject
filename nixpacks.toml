@@ -1,0 +1,12 @@
+[phases.setup]
+apt_pkgs = ["python3", "python3-pip", "build-essential", "libpq-dev"]
+
+[phases.build]
+cmds = [
+  "pip install -r requirements.txt",
+  "python manage.py collectstatic --noinput",
+  "python manage.py migrate"
+]
+
+[phases.start]
+cmd = "gunicorn your_project_name.wsgi:application --bind 0.0.0.0:$PORT"
